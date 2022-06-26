@@ -39,7 +39,9 @@ docker run --detach \
 ```
 cp -Rf ./srv/gandi-ddns.sh /usr/local/bin/gandi-ddns
 chmod +x /usr/local/bin/*
-cp -Rf ./etc/* /etc/
+
+cp -Rf ./etc/ /etc/
+
 systemctl daemon-reload
 systemctl enable gandi-ddns.service gandi-ddns.timer
 systemctl start gandi-ddns.service gandi-ddns.timer
