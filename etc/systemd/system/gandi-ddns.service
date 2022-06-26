@@ -1,0 +1,15 @@
+[Unit]
+Description     = Gandi-DDNS
+After           = network-online.target
+Wants           = network-online.target
+
+[Service]
+User            = daemon
+Group           = daemon
+Type            = simple
+EnvironmentFile =/etc/gandi-ddns.conf
+ExecStart       = /usr/local/bin/gandi-ddns
+Restart         =on-failure
+
+[Install]
+WantedBy        = multi-user.target

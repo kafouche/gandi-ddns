@@ -1,0 +1,24 @@
+# Dockerfile: gandi-livedns
+# Update Gandi LiveDNS record.
+
+FROM        alpine:latest
+
+# CRON environment variables.
+ENV         PERIODIC='hourly'
+
+# Gandi-DDNS environment variables.
+ENV         API_KEY='' \
+            FQDN='' \
+            MY_IP='http://ifconfig.me/ip' \
+            RRSET_NAME='' \
+            RRSET_TYPE='A' \
+            RRSET_TTL=3600
+
+COPY        ./entrypoint.sh     /
+COPY        ./src/*.sh          /usr/local/bin/
+
+RUN         apk --update --no-cache add bash curl jq \
+            && chmod +x /entrypoint.sh \
+            && chmod +x /usr/local/bin/*.sh
+
+ENTRYPOINT  [ "/entrypoint.sh" ]
